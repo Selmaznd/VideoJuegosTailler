@@ -5,6 +5,10 @@ TagManager:
   serializedVersion: 2
   tags:
   - RespawnPlane
+  - PlatformBasic
+  - PlatformPink
+  - PlatformBlue
+  - PlatformYellow
   layers:
   - Default
   - TransparentFX
