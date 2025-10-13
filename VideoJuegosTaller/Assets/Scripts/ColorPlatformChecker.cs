@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class ColorPlatformChecker : MonoBehaviour
 {
-    private Material currentMaterial;
+
     private Renderer rend;
-    private RespawnOnTrigger respawnScript; // ton script de respawn
+    private RespawnOnTrigger respawnScript;
 
     public Material pinkMaterial;
     public Material yellowMaterial;
@@ -16,52 +16,29 @@ public class ColorPlatformChecker : MonoBehaviour
     {
         rend = GetComponent<Renderer>();
         respawnScript = GetComponent<RespawnOnTrigger>();
-        currentMaterial = rend.material;
     }
 
-    void Update()
+    void OnTriggerEnter(Collider other)
     {
-        // Met à jour la couleur actuelle du joueur (au cas où elle change via MaterialSwitcher)
-        currentMaterial = rend.material;
+        string currentMatName = rend.material.name;
+
+        switch (other.tag)
+        {
+            case "PlatformPink":
+                if (!currentMatName.Contains(pinkMaterial.name))
+                    respawnScript?.SendMessage("Respawn");
+                break;
+
+            case "PlatformYellow":
+                if (!currentMatName.Contains(yellowMaterial.name))
+                    respawnScript?.SendMessage("Respawn");
+                break;
+
+            case "PlatformBlue":
+                if (!currentMatName.Contains(blueMaterial.name))
+                    respawnScript?.SendMessage("Respawn");
+                break;
+        }
     }
 
-    void OnCollisionEnter(Collision collision)
-    {
-        string tag = collision.gameObject.tag;
-
-        // On vérifie la couleur du joueur et la plateforme touchée
-        //if (tag == "PlatformBasic")
-        //{
-
-        //    return;
-        //}
-        if (tag == "PlatformPink" && currentMaterial != pinkMaterial)
-        {
-            respawnScript?.SendMessage("Respawn");
-        }
-        else if (tag == "PlatformYellow" && currentMaterial != yellowMaterial)
-        {
-            respawnScript?.SendMessage("Respawn");
-        }
-        else if (tag == "PlatformBlue" && currentMaterial != blueMaterial)
-        {
-            respawnScript?.SendMessage("Respawn");
-        }
-
-        //if (currentMaterial == pinkMaterial)
-        //{
-        //    if (tag != "PlatformPink" && tag != "PlatformBasic")
-        //        respawnScript?.SendMessage("Respawn");
-        //}
-        //else if (currentMaterial == yellowMaterial)
-        //{
-        //    if (tag != "PlatformYellow" && tag != "PlatformBasic")
-        //        respawnScript?.SendMessage("Respawn");
-        //}
-        //else if (currentMaterial == blueMaterial)
-        //{
-        //    if (tag != "PlatformBlue" && tag != "PlatformBasic")
-        //        respawnScript?.SendMessage("Respawn");
-        //}
-    }
 }

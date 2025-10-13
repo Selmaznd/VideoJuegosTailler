@@ -5,7 +5,7 @@ public class RespawnOnTrigger : MonoBehaviour
     private Vector3 startPosition;
     private Quaternion startRotation;
     private Rigidbody rb;
-
+ 
     void Start()
     {
         startPosition = transform.position;
