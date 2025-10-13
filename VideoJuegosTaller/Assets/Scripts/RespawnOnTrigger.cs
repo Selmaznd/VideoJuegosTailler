@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class RespawnOnTrigger : MonoBehaviour
 {
@@ -19,6 +20,11 @@ public class RespawnOnTrigger : MonoBehaviour
         if (other.CompareTag("RespawnPlane"))
         {
             Respawn();
+        }
+
+        if (other.CompareTag("Win"))
+        {
+            SceneManager.LoadScene("win");
         }
     }
 

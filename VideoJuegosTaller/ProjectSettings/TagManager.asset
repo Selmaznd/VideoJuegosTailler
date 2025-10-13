@@ -9,6 +9,7 @@ TagManager:
   - PlatformPink
   - PlatformBlue
   - PlatformYellow
+  - Win
   layers:
   - Default
   - TransparentFX
