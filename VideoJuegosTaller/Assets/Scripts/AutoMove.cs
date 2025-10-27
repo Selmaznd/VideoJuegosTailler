@@ -5,6 +5,7 @@ public class AutoMove : MonoBehaviour
     public float moveSpeed = 5f;
     public float rotationSpeed = 100f;
     public float jumpForce = 5f;
+    public float rayDistance = 0.6f;
 
     private Rigidbody rb;
     private bool isGrounded;
@@ -17,21 +18,22 @@ public class AutoMove : MonoBehaviour
 
     void FixedUpdate()
     {
-        // Avancer automatiquement
-        Vector3 forwardMove = transform.forward * moveSpeed * Time.fixedDeltaTime;
-        rb.MovePosition(rb.position + forwardMove);
+        // Avancer
+        Vector3 forwardMove = transform.forward * moveSpeed;
+        rb.velocity = new Vector3(forwardMove.x, rb.velocity.y, forwardMove.z);
 
-        // Rotation avec flèches gauche/droite seulement
+        // Rotation
         float rotationInput = 0f;
         if (Input.GetKey(KeyCode.LeftArrow)) rotationInput = -1f;
         if (Input.GetKey(KeyCode.RightArrow)) rotationInput = 1f;
+        rb.MoveRotation(rb.rotation * Quaternion.Euler(0f, rotationInput * rotationSpeed * Time.fixedDeltaTime, 0f));
 
-        Quaternion rotation = Quaternion.Euler(0f, rotationInput * rotationSpeed * Time.fixedDeltaTime, 0f);
-        rb.MoveRotation(rb.rotation * rotation);
     }
 
     void Update()
     {
+        
+        isGrounded = Physics.Raycast(transform.position, Vector3.down, rayDistance);
         // Saut avec flèche du haut
         if (Input.GetKeyDown(KeyCode.UpArrow) && isGrounded)
         {
@@ -39,13 +41,13 @@ public class AutoMove : MonoBehaviour
         }
     }
 
-    void OnCollisionStay(Collision collision)
-    {
-        isGrounded = true;
-    }
+    //void OnCollisionStay(Collision collision)
+    //{
+    //    isGrounded = true;
+    //}
 
-    void OnCollisionExit(Collision collision)
-    {
-        isGrounded = false;
-    }
+    //void OnCollisionExit(Collision collision)
+    //{
+    //    isGrounded = false;
+    //}
 }

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -11,16 +12,16 @@ public class ColorPlatformChecker : MonoBehaviour
     public Material pinkMaterial;
     public Material yellowMaterial;
     public Material blueMaterial;
+    public Renderer rende;
 
     void Start()
     {
-        rend = GetComponent<Renderer>();
-        respawnScript = GetComponent<RespawnOnTrigger>();
+        respawnScript = GetComponentInParent<RespawnOnTrigger>();
     }
 
     void OnTriggerEnter(Collider other)
     {
-        string currentMatName = rend.material.name;
+        string currentMatName = rende.material.name;
 
         switch (other.tag)
         {
