@@ -21,6 +21,8 @@ public class AutoMove : MonoBehaviour
         // Avancer
         Vector3 forwardMove = transform.forward * moveSpeed;
         rb.velocity = new Vector3(forwardMove.x, rb.velocity.y, forwardMove.z);
+        //rb.AddForce(transform.forward * moveSpeed, ForceMode.Acceleration);
+
 
         // Rotation
         float rotationInput = 0f;

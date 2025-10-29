@@ -47,11 +47,11 @@ public class BalancierRotation : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        // cible uniquement le joueur (ou enleve le CompareTag si tu veux tout frapper)
-        if (!collision.gameObject.CompareTag("Player")) return;
 
         Rigidbody rb = collision.rigidbody;
         if (rb == null) return;
+
+
 
         // coordonnées du contact pour appliquer la force au bon endroit
         ContactPoint contact = collision.contacts.Length > 0 ? collision.contacts[0] : default;
