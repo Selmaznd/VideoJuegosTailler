@@ -23,7 +23,7 @@ public class AutoMove : MonoBehaviour
         if (knockbackTimer > 0f)
         {
             knockbackTimer -= Time.fixedDeltaTime;
-            return; // on laisse la physique agir, on ne touche pas à la velocity
+            return; 
         }
 
         // Avancer automatiquement
@@ -59,7 +59,7 @@ public class AutoMove : MonoBehaviour
             Vector3 pivot = hammer.position;
             Vector3 radius = contactPoint - pivot;
 
-            // Axe de rotation supposé autour de Z (adapter si nécessaire)
+            // Axe de rotation
             Vector3 angularVelocity = hammer.TransformDirection(Vector3.forward) * 15f;
             Vector3 hammerVelocity = Vector3.Cross(angularVelocity, radius);
 
