@@ -9,6 +9,9 @@ TagManager:
   - PlatformPink
   - PlatformBlue
   - PlatformYellow
+  - Win
+  - TriggerZone
+  - Hammer
   layers:
   - Default
   - TransparentFX

@@ -1,11 +1,12 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class RespawnOnTrigger : MonoBehaviour
 {
     private Vector3 startPosition;
     private Quaternion startRotation;
     private Rigidbody rb;
-
+ 
     void Start()
     {
         startPosition = transform.position;
@@ -19,6 +20,11 @@ public class RespawnOnTrigger : MonoBehaviour
         if (other.CompareTag("RespawnPlane"))
         {
             Respawn();
+        }
+
+        if (other.CompareTag("Win"))
+        {
+            SceneManager.LoadScene("win");
         }
     }
 
