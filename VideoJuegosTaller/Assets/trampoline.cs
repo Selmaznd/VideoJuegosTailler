@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -94,6 +95,7 @@ public class trampoline : MonoBehaviour
             if (transform.localPosition.y <= (targetYDown + 0.0001) && transform.localScale.y <= (targetScaleYDown + 0.01))
             {
                 getDown = false;
+                delayStarted = false;
             }
         }
 
