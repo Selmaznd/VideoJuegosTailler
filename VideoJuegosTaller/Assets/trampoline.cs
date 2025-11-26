@@ -51,8 +51,6 @@ public class trampoline : MonoBehaviour
                 targetScale,
                 Time.deltaTime * speed
             );
-            Debug.Log("going up");
-            Debug.Log(transform.position.y);
             if (transform.position.y >= (targetY -0.01))
             {
                 
@@ -61,7 +59,6 @@ public class trampoline : MonoBehaviour
                 {
                     delayStarted = true;
                     StartCoroutine(StartGoingDown());
-                    Debug.Log("Start the going down");
                 }
                 
             }
@@ -69,10 +66,6 @@ public class trampoline : MonoBehaviour
         }
         if (getDown)
         {
-            Debug.Log("going down");
-            Debug.Log ("transform position = " + transform.position.y);
-            Debug.Log("transform local position = " + transform.localPosition.y);
-            Debug.Log("local scale = " + transform.localScale.y);
 
             // --- Position ---
             Vector3 targetPos = targetObject.position;
@@ -101,7 +94,6 @@ public class trampoline : MonoBehaviour
             if (transform.localPosition.y <= (targetYDown + 0.0001) && transform.localScale.y <= (targetScaleYDown + 0.01))
             {
                 getDown = false;
-                Debug.Log("Stop going down");
             }
         }
 
