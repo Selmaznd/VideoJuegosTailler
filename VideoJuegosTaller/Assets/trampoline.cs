@@ -11,7 +11,15 @@ public class trampoline : MonoBehaviour
     public float targetScaleY = 1.0f;
     public float speed = 3f;   // vitesse d’interpolation
 
+    public float targetYDown = -0.43f;
+    public float targetScaleYDown = 0.33f;
+    public float speedDown = 3f;   // vitesse d’interpolation
+
     private bool triggered = false;
+    private bool getDown = false;
+
+    public float delayBeforeDown = 0.2f;
+    private bool delayStarted = false;
     void Start()
     {
         if (targetObject == null)
@@ -43,7 +51,66 @@ public class trampoline : MonoBehaviour
                 targetScale,
                 Time.deltaTime * speed
             );
+            Debug.Log("going up");
+            Debug.Log(transform.position.y);
+            if (transform.position.y >= (targetY -0.01))
+            {
+                
+                triggered = false;
+                if (!delayStarted)
+                {
+                    delayStarted = true;
+                    StartCoroutine(StartGoingDown());
+                    Debug.Log("Start the going down");
+                }
+                
+            }
+
         }
+        if (getDown)
+        {
+            Debug.Log("going down");
+            Debug.Log ("transform position = " + transform.position.y);
+            Debug.Log("transform local position = " + transform.localPosition.y);
+            Debug.Log("local scale = " + transform.localScale.y);
+
+            // --- Position ---
+            Vector3 targetPos = targetObject.position;
+            targetPos.y = targetYDown;
+
+            if(transform.localPosition.y >= (targetYDown + 0.0001))
+            {
+                targetObject.position = Vector3.Lerp(
+                    targetObject.position,
+                    targetPos,
+                    Time.deltaTime * speedDown
+                );
+            }
+            
+
+            // --- Taille (scale) ---
+            Vector3 targetScale = targetObject.localScale;
+            targetScale.y = targetScaleYDown;
+
+            targetObject.localScale = Vector3.Lerp(
+                targetObject.localScale,
+                targetScale,
+                Time.deltaTime * speedDown
+            );
+
+            if (transform.localPosition.y <= (targetYDown + 0.0001) && transform.localScale.y <= (targetScaleYDown + 0.01))
+            {
+                getDown = false;
+                Debug.Log("Stop going down");
+            }
+        }
+
+    }
+
+    IEnumerator StartGoingDown()
+    {
+        yield return new WaitForSeconds(delayBeforeDown);
+        getDown = true;
     }
 
     public void Trigger()
