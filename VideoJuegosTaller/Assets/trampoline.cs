@@ -33,6 +33,7 @@ public class trampoline : MonoBehaviour
     {
         if (triggered)
         {
+            getDown = false;
             // --- Position ---
             Vector3 targetPos = targetObject.position;
             targetPos.y = targetY;
@@ -52,7 +53,7 @@ public class trampoline : MonoBehaviour
                 targetScale,
                 Time.deltaTime * speed
             );
-            if (transform.position.y >= (targetY -0.01))
+            if (transform.position.y >= (targetY -0.0001))
             {
                 
                 triggered = false;
@@ -67,7 +68,7 @@ public class trampoline : MonoBehaviour
         }
         if (getDown)
         {
-
+            triggered = false;
             // --- Position ---
             Vector3 targetPos = targetObject.position;
             targetPos.y = targetYDown;
@@ -114,7 +115,7 @@ public class trampoline : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player"))
+        if (other.CompareTag("Rear"))
         {
             triggered = true;
         }

@@ -12,6 +12,7 @@ TagManager:
   - Win
   - TriggerZone
   - Hammer
+  - Rear
   layers:
   - Default
   - TransparentFX
