@@ -6,12 +6,16 @@ public class RespawnOnTrigger : MonoBehaviour
     private Vector3 startPosition;
     private Quaternion startRotation;
     private Rigidbody rb;
- 
+
+    private BouleController[] boules;
+
     void Start()
     {
         startPosition = transform.position;
         startRotation = transform.rotation;
         rb = GetComponent<Rigidbody>();
+
+        boules = FindObjectsOfType<BouleController>();
     }
 
     void OnTriggerEnter(Collider other)
@@ -26,6 +30,12 @@ public class RespawnOnTrigger : MonoBehaviour
         {
             SceneManager.LoadScene("win");
         }
+
+        if (other.CompareTag("triggerZoneBoule"))
+        {
+            foreach (var b in boules)
+                b.ActivateGravity();
+        }
     }
 
     void Respawn()
@@ -38,5 +48,11 @@ public class RespawnOnTrigger : MonoBehaviour
 
         transform.position = startPosition;      // remet à la position de départ
         transform.rotation = startRotation;      // remet la rotation de départ
+
+        if (boules != null)
+        {
+            foreach (var b in boules)
+                b.ResetBoule();
+        }
     }
 }
