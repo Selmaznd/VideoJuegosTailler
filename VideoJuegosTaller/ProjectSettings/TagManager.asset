@@ -12,6 +12,8 @@ TagManager:
   - Win
   - TriggerZone
   - Hammer
+  - Rear
+  - triggerZoneBoule
   layers:
   - Default
   - TransparentFX

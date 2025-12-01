@@ -7,21 +7,22 @@ public class RespawnOnTrigger : MonoBehaviour
     private Vector3 startPosition;
     private Quaternion startRotation;
     private Rigidbody rb;
-
+    private BouleController[] boules;
     public TextMeshProUGUI finalTime;
+
 
     void Start()
     {
         startPosition = transform.position;
         startRotation = transform.rotation;
         rb = GetComponent<Rigidbody>();
-
+        boules = FindObjectsOfType<BouleController>();
         GameTimer timer = FindObjectOfType<GameTimer>();
         if (timer != null)
         {
             timer.StartTimer();
         }
-    }
+  }
 
     void OnTriggerEnter(Collider other)
     {
@@ -78,6 +79,12 @@ public class RespawnOnTrigger : MonoBehaviour
             // Charger la scène win
             SceneManager.LoadScene("win");
         }
+
+        if (other.CompareTag("triggerZoneBoule"))
+        {
+            foreach (var b in boules)
+                b.ActivateGravity();
+        }
     }
 
     // IMPORTANT : Fonction Respawn() en DEHORS de OnTriggerEnter
@@ -91,6 +98,13 @@ public class RespawnOnTrigger : MonoBehaviour
 
         transform.position = startPosition;
         transform.rotation = startRotation;
+
+        if (boules != null)
+        {
+            foreach (var b in boules)
+                b.ResetBoule();
+        }
+
     }
 
     private int GetCurrentLevelNumber()
