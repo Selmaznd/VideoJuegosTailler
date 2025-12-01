@@ -13,6 +13,19 @@ public class MainMenu : MonoBehaviour
 
     public void DisplayInfo()
     {
+        PlayerPrefs.DeleteKey("UnlockedLevel");
+        PlayerPrefs.DeleteKey("FinalTime");
+        PlayerPrefs.DeleteKey("LastCompletedLevel");
+
+        // Réinitialiser tous les niveaux (ajustez le nombre selon vos niveaux)
+        for (int i = 1; i <= 10; i++)
+        {
+            string levelName = "lvl" + i;
+            PlayerPrefs.DeleteKey(levelName + "_BestTime");
+            PlayerPrefs.DeleteKey(levelName + "_IsBestScore");
+            PlayerPrefs.DeleteKey(levelName + "_Medal");
+        }
+
         InfoGame.SetActive(true);
         BGPanel.SetActive(true);
     }
